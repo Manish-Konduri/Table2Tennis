@@ -4,7 +4,16 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
   <display-name>Table Tennis</display-name>
-
+  <filter>
+    <filter-name>AuthenticateFilter</filter-name> <!-- mandatory -->
+    <filter-class>com.tabletennis.AuthenticateFilter</filter-class> <!-- mandatory -->
+  </filter>
+  <filter-mapping>
+    <filter-name>AuthenticateFilter</filter-name> <!-- mandatory -->
+    <url-pattern>/*</url-pattern> <!-- either url-pattern or servlet-name is mandatory -->
+    <servlet-name>LoginPlayer</servlet-name>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
   <!--<security-constraint>
     <web-resource-collection>
       <web-resource-name>securepages</web-resource-name>
