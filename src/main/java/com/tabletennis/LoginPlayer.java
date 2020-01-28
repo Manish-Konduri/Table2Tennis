@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
-@WebServlet(name="login",urlPatterns = "/login")
+//@WebServlet(name="login",urlPatterns = "/login")
 public class LoginPlayer extends HttpServlet {
     public LoginPlayer()
     {
@@ -55,7 +55,7 @@ public class LoginPlayer extends HttpServlet {
 //            userDetails.toJson(arrayList);
            // System.out.println(userDetails.length());
             if (id.length()>0) {
-               resp.getWriter().write(userDetails.toString());
+            //   resp.getWriter().write(userDetails.toString());
                 Cookie c = new Cookie("id",id);
 
                 //resp.getWriter().write(c.getValue());

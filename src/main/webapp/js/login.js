@@ -28,10 +28,10 @@ $(document).ready(function(){
      data: loginObj,
      success: function(response) {
      var resp = JSON.parse(response);
-        if(resp.role=="Player")
-          window.location.replace("afterLogin.html");
-        else if(resp.role=="TeamManager")
-          window.location.replace("manager.html");
+//        if(resp.role=="Player")
+//          window.location.replace("afterLogin.html");
+//        else if(resp.role=="TeamManager")
+//          window.location.replace("manager.html");
 
      },
      error: function(error) {

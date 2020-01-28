@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import java.sql.*;
 
 public class Role extends HttpServlet {
-    public void role(String idstr){
+    public String role(String idstr){
         System.out.println(idstr);
         int i;
 //        String idcap = "";
@@ -31,12 +31,15 @@ public class Role extends HttpServlet {
             String r="";
             if (rs.next()) {
                 r=rs.getString("role");
+                return r;
             }
-            System.out.println(r);
+          //  System.out.println(r);
 
         } catch (SQLException | ClassNotFoundException e) {
 //            resp.setStatus(401);
             e.printStackTrace();
         }
+    return "";
     }
+
 }
