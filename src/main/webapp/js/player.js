@@ -1,20 +1,42 @@
 
 $(document).ready(function () {
-    $.post('userDetails', {
-        email: document.cookie
-    }, function (response) {
-
-        var PlayerLoginInfo = JSON.parse(response);
-        console.log(PlayerLoginInfo.role);
-        if (PlayerLoginInfo.role == "Player")
-        {
-            player(PlayerLoginInfo);
-            console.log(PlayerLoginInfo.role);
-        }
-        hi()
-    });
-
+//    $.post('userDetails', {
+//    }, function (response) {
+//
+//        var PlayerLoginInfo = JSON.parse(response);
+//        console.log(PlayerLoginInfo.role);
+//        if (PlayerLoginInfo.role == "Player")
+//        {
+//            player(PlayerLoginInfo);
+//            console.log(PlayerLoginInfo.role);
+//        }
+//        hi()
+//    });
+     $.ajax({
+     type: "POST",
+     url: "userDetails",
+     success: function(response) {
+     console.log("Success");
+      var PlayerLoginInfo = JSON.parse(response);
+     if (PlayerLoginInfo.role == "Player")
+       {
+           player(PlayerLoginInfo);
+           console.log(PlayerLoginInfo.role);
+       }
+       hi()
+     },
+     error: function(error) {
+            window.location.replace("index.html");
+     }
+   });
 });
+
+
+
+
+
+
+
 
 function player(PlayerLoginInfo) {
     // window.location.replace("player.html");
@@ -102,7 +124,7 @@ function myFunction(sticky) {
     }
 }
 function Edit(){
-    if(document.cookie!=""){
+//    if(document.cookie!=""){
     $( "#changeName" ).prop( "disabled", false );
      $( "#submitBtn" ).prop( "disabled", false );
     $( "#changeName" ).prop( "placeholder", "Enter Name" );
@@ -113,12 +135,11 @@ function Edit(){
     $( "#changeEmail" ).prop( "required", true );
     $( "#changePhone" ).prop( "placeholder", "Enter Phone" );
     $( "#changeName" ).focus()
-}
-else
-{
-alert("Login You *****")
-window.location.replace("index.html");
-}
+//}
+//else
+//{
+//window.location.replace("index.html");
+//}
 }
 
 function displayPlayerCard()
@@ -143,14 +164,12 @@ function logout(){
     })
 }
 function editDetails(){
-ck=document.cookie;
-console.log(ck)
-if(ck!=""){
+
 var name = $('#changeName').val();
    var email = $('#changeEmail').val();
    var phone = $('#changePhone').val();
 
- var loginObj = {"Email" : email, "Name" : name, "Phone":phone,"id":document.cookie}
+ var loginObj = {"Email" : email, "Name" : name, "Phone":phone}
  console.log(loginObj)
    $.ajax({
      type: "POST",
@@ -160,13 +179,9 @@ var name = $('#changeName').val();
      console.log("Success");
       },
           error: function(error) {
-                 alert("InCorrect Credentials");
+                 alert("InCorrect Credentials--------------------");
           }
 })
-}
-else{
-alert("Login First")
-}
 }
 
 function viewJoinTournament(){

@@ -7,7 +7,7 @@ function createTournament() {
     var Sets = $('#Sets').val();
     var PlayerCount = $('#playerCount').val();
 
-    var loginObj = { "Tournament": TournamentName, "sets": Sets, "playerscount": PlayerCount, "Id": document.cookie }
+    var loginObj = { "Tournament": TournamentName, "sets": Sets, "playerscount": PlayerCount }
     console.log(loginObj)
     $.ajax({
         type: "POST",
@@ -18,12 +18,9 @@ function createTournament() {
 }
 function viewTournament() {
 
-    var loginObj = { "Id": document.cookie }
-    console.log(loginObj)
     $.ajax({
         type: "GET",
         url: "managerLogin",
-        data: loginObj,
         success: function (response) {
             var resp = JSON.parse(response);
             console.log(resp);
@@ -61,7 +58,7 @@ function viewTournamentDetails(resp, i) {
     var TournamentNames = resp;
     //var roundNo = $('#roundNo' + String(i)).val();
 
-    var loginObj = { "Tournament": TournamentNames, "Id": document.cookie, "RoundNum": roundNo }
+    var loginObj = { "Tournament": TournamentNames,"RoundNum": roundNo }
     console.log(loginObj)
     $.ajax({
         type: "GET",
@@ -96,7 +93,7 @@ function selectMatch(TournamentName, i) {
     console.log(a)
 
 
-    var loginObj = { "Tournament": TournamentName, "Id": document.cookie, "RoundNum": roundNo }
+    var loginObj = { "Tournament": TournamentName, "RoundNum": roundNo }
     console.log(loginObj)
     $.ajax({
         type: "GET",

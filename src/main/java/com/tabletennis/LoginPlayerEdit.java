@@ -24,17 +24,12 @@ public class LoginPlayerEdit extends HttpServlet {
         String playerName = request.getParameter("Name");
         String phone = request.getParameter("Phone");
         String email = request.getParameter("Email");
-        String stridcap = request.getParameter("id");
+        String stridcap = String.valueOf(request.getSession(false).getAttribute("id"));
         System.out.println("----"+playerName+"---");
-        int i;
-        String idcap = "";
-        for (i = 3; i < stridcap.length(); i++) {
-            idcap = idcap + stridcap.charAt(i);
-        }
         try{
             resp.setContentType("text/html");
             DataBase db = new DataBase();
-            db.loginPlayerEdit(idcap,playerName,phone,email);
+            db.loginPlayerEdit(stridcap,playerName,phone,email);
 
         } catch (SQLException | ClassNotFoundException e) {
 //            resp.setStatus(401);

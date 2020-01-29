@@ -31,7 +31,7 @@ public class Manager extends HttpServlet {
         String tournamentName = request.getParameter("Tournament");
         String sets = request.getParameter("sets");
         String playersCount = request.getParameter("playerscount");
-        String stridcap = request.getParameter("Id");
+        String stridcap = String.valueOf(request.getSession(false).getAttribute("id"));
         int count = Integer.parseInt(playersCount);
         int rounds=0;
         int j;
@@ -84,15 +84,12 @@ public class Manager extends HttpServlet {
         DataBase db = new DataBase();
         Statement statement;
         Connection connection;
-        String stridcap = request.getParameter("Id");
+        String stridcap = String.valueOf(request.getSession(false).getAttribute("id"));
         System.out.println("---->"+stridcap);
 
         int j;
         String idcap = "";
-        for (j = 3; j < stridcap.length(); j++) {
-            idcap = idcap + stridcap.charAt(j);
-        }
-        int id = Integer.parseInt(idcap);
+        int id = Integer.parseInt(stridcap);
         try {
             resp.setContentType("text/html");
             Class.forName("com.mysql.jdbc.Driver");

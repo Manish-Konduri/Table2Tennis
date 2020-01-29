@@ -1,13 +1,11 @@
 
  // $("#submitBtn").on("click",function(){
-   var ck = document.cookie;
-   console.log(ck)
-   if(ck!=""){
+
    var name = $('#changeName').val();
    var email = $('#changeEmail').val();
    var phone = $('#changePhone').val();
 
-   var loginObj = {"Email" : email, "Name" : name, "Phone":phone,"id":document.cookie}
+   var loginObj = {"Email" : email, "Name" : name, "Phone":phone}
    $.ajax({
      type: "POST",
      url: "editForm",
@@ -22,11 +20,6 @@
 
      },
      error: function(error) {
-            alert("InCorrect Credentials");
+            alert("InCorrect Credentials=----");
      }
    });
-   })
-}
-else{
-alert("Login")
-}

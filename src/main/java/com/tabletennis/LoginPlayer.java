@@ -6,10 +6,7 @@ import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -46,12 +43,23 @@ public class LoginPlayer extends HttpServlet {
 //            }
 //            userDetails.toJson(arrayList);
            // System.out.println(userDetails.length());
+            Integer visitCount = new Integer(0);
+            String visitCountKey = new String("visitCount");
+            String userID = id;
             if (id.length()>0) {
                resp.getWriter().write(userDetails.toString());
-                Cookie c = new Cookie("id",id);
-
+//                Cookie c = new Cookie("id",id);
+                HttpSession session = request.getSession(true);
+                if (session.isNew()) {
+                    session.setAttribute("id",id);
+                } else {
+                    visitCount = (Integer)session.getAttribute(visitCountKey);
+                    visitCount = visitCount + 1;
+                    id = (String)session.getAttribute("id");
+                }
+                session.setAttribute(visitCountKey,  visitCount);
                 //resp.getWriter().write(c.getValue());
-                resp.addCookie(c);
+//                resp.addCookie(c);
 
             }
 

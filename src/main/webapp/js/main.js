@@ -72,6 +72,6 @@ function load() {
 }
 
 function callURL() {
-    var url = 'http://localhost:8080/Players'
+    var url = 'http://localhost:8080/Table2Tennis/Players'
     return url
 }
