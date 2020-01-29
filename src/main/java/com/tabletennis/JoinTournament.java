@@ -1,5 +1,4 @@
 package com.tabletennis;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,30 +12,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
 @WebServlet(name="joinTournament",urlPatterns = "/joinTournament")
 public class JoinTournament extends HttpServlet {
     public JoinTournament()
     {
-
     }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        DataBase db = new DataBase();
-        Statement statement;
-        Connection connection;
-
         try {
             resp.setContentType("text/html");
-            Class.forName("com.mysql.jdbc.Driver");
-
+            DataBase db = new DataBase();
             // Connects to mysql service through a connection url and credentials
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "manishk", "manish@145#");
-            statement = connection.createStatement();
-
-            String query = "select tName from tournamentNames";
-            ResultSet rs = statement.executeQuery(query);
+            ResultSet rs = db.joinTournamentGet();
             JSONObject userDetails =  new JSONObject();
             JSONArray jsonArray = new JSONArray();
             String s = "";
@@ -50,22 +37,14 @@ public class JoinTournament extends HttpServlet {
             }
             else
                 resp.setStatus(401);
-
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-
-        DataBase db = new DataBase();
-        Statement statement;
-        Connection connection;
         String tournamentName = request.getParameter("Tournament");
-
         String stridcap = request.getParameter("Id");
         System.out.println("---->"+tournamentName);
         int j;
@@ -73,27 +52,16 @@ public class JoinTournament extends HttpServlet {
         for (j = 3; j < stridcap.length(); j++) {
             idcap = idcap + stridcap.charAt(j);
         }
-
         int id = Integer.parseInt(idcap);
         try {
             resp.setContentType("text/html");
-            Class.forName("com.mysql.jdbc.Driver");
-
-            // Connects to mysql service through a connection url and credentials
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "manishk", "manish@145#");
-            statement = connection.createStatement();
-            StringBuilder partQuery= new StringBuilder();
-
-            String query = "INSERT INTO `tournamentjoined`(`MemberId`,`tournamentName`) VALUES ('"+id+"','"+tournamentName+"')";
-            statement.executeUpdate(query);
+            DataBase db = new DataBase();
+            db.joinTournamentPost(id,tournamentName);
         }
         catch (Exception e){
             e.printStackTrace();
             resp.setStatus(401);
         }
-
-
-
     }
 }
 

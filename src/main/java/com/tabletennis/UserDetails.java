@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
-@WebServlet(name="UserDetails",urlPatterns = "/user")
+@WebServlet(name="UserDetails",urlPatterns = "/userDetails")
 public class UserDetails extends HttpServlet {
     public UserDetails()
     {

@@ -11,6 +11,7 @@ import java.util.List;
 public class MatchPlayer {
     public List<Match> matching(String tournamentName, int round) {
         DataBase db = new DataBase();
+        round=round-1;
         Statement statement;
         Connection connection;
         try {

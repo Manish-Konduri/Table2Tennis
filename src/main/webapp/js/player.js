@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-    $.post('user', {
+    $.post('userDetails', {
         email: document.cookie
     }, function (response) {
 

@@ -23,21 +23,13 @@ public class LoginPlayer extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        DataBase db = new DataBase();
         String email = request.getParameter("Email");
         String password = request.getParameter("pwd");
       //  String finalPassword =  PasswordEncryption.encryption(password);
-        Statement statement;
-        Connection connection;
         try {
             resp.setContentType("text/html");
-            Class.forName("com.mysql.jdbc.Driver");
-
-            // Connects to mysql service through a connection url and credentials
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "manishk", "manish@145#");
-            statement = connection.createStatement();
-            String q = "select * from teamplayer where Email='" + email + "' and password= '" + password + "'";
-            ResultSet rs = statement.executeQuery(q);
+            DataBase db = new DataBase();
+            ResultSet rs = db.loginPlayer(email,password);
             JSONObject userDetails =  new JSONObject();
         //    Gson userDetails = new Gson();
             String id="";
@@ -55,7 +47,7 @@ public class LoginPlayer extends HttpServlet {
 //            userDetails.toJson(arrayList);
            // System.out.println(userDetails.length());
             if (id.length()>0) {
-            //   resp.getWriter().write(userDetails.toString());
+               resp.getWriter().write(userDetails.toString());
                 Cookie c = new Cookie("id",id);
 
                 //resp.getWriter().write(c.getValue());

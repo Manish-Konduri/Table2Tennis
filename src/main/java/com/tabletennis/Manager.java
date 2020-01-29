@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name="managerLogin",urlPatterns = "/managerLogin")
 public class Manager extends HttpServlet {
@@ -30,7 +32,6 @@ public class Manager extends HttpServlet {
         String sets = request.getParameter("sets");
         String playersCount = request.getParameter("playerscount");
         String stridcap = request.getParameter("Id");
-        System.out.println("---->"+tournamentName);
         int count = Integer.parseInt(playersCount);
         int rounds=0;
         int j;
@@ -46,22 +47,12 @@ public class Manager extends HttpServlet {
         int id = Integer.parseInt(idcap);
         try {
             resp.setContentType("text/html");
-            Class.forName("com.mysql.jdbc.Driver");
+       //     StringBuilder partQuery= new StringBuilder();
+//            for(int i=1;i<=rounds;i++)
+//                partQuery.append(",ROUND").append(i).append(" int DEFAULT 0").append(",SET").append(i).append(" int DEFAULT 0");
+//           // System.out.println(partQuery.toString());
 
-            // Connects to mysql service through a connection url and credentials
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/testdb", "manishk", "manish@145#");
-            statement = connection.createStatement();
-            StringBuilder partQuery= new StringBuilder();
-            for(int i=1;i<=rounds;i++)
-                partQuery.append(",ROUND").append(i).append(" int DEFAULT 0").append(",SET").append(i).append(" int DEFAULT 0");
-            System.out.println(partQuery.toString());
-            String q1 = "insert into tournamentNames values('"+tournamentName+"','"+id+"')";
-            String q="create table "+tournamentName+"(PLAYERNAME varchar(10) PRIMARY KEY"+partQuery.toString()+",TOTAL_SETS int DEFAULT 0)";
-            System.out.println(q);
-            statement.executeUpdate(q);
-            statement.executeUpdate(q1);
-            String query3 = "select * from tournamentNames where Id="+id+";";
-            ResultSet rs = statement.executeQuery(query3);
+            ResultSet rs = db.managerPost(tournamentName,id);
                 JSONObject userDetails =  new JSONObject();
 //            JSONArray js = new JSONArray();
 //            //    Gson userDetails = new Gson();
